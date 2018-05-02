@@ -39,6 +39,7 @@ class CharacterDetail(APIView):
                             status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class RaceDetail(APIView):
     def get_object(self, pk):
         try:
@@ -46,9 +47,8 @@ class RaceDetail(APIView):
         except Race.DoesNotExist:
             raise Http404
 
-
     def get(self, request, pk):
-        race = Race.objects.filter(pk=pk)
+        race = self.get_object(pk)
         return Response(
             RaceSerializer(race, context={'request': request}).data,
             status=status.HTTP_200_OK
@@ -85,6 +85,7 @@ class PlanetDetail(APIView):
                             status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class TechniqueDetail(APIView):
     def get_object(self, pk):
         try:
@@ -106,6 +107,7 @@ class TechniqueDetail(APIView):
             return Response(serializer.data,
                             status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class LocationDetail(APIView):
     def get_object(self, pk):
